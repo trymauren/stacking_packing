@@ -16,7 +16,7 @@ import torch.nn.functional as F
 
 path_to_root = git.Repo('.', search_parent_directories=True).working_dir
 sys.path.append(path_to_root)
-sys.path.append(path_to_root + '/code')
+sys.path.append(path_to_root)
 from stacking_environment.environment import StackingWorld
 from data import cut
 from data import random_sampling
@@ -320,7 +320,7 @@ if __name__ == '__main__':
     upcoming_items_obs = []
     for i in range(0, TRAIN_VAL_FILES):
         data_file = f'3d_spp_random_data_16_items_10000_instances_12_8_grid_{i}'
-        data_path = path_to_root + f'/code/data/cp_sat_data/{data_file}.json'
+        data_path = path_to_root + f'/data/cp_sat_data/{data_file}.json'
         with open(data_path, 'r', encoding='utf-8') as fp:
             data = json.load(fp)
         act.append(data['actions'])
@@ -343,7 +343,7 @@ if __name__ == '__main__':
         obs, act, num_epochs=100, batch_size=512, lr=1e-3, device='cuda'
     )
     name = '3d_spp_random_data_16_items_10000_instances_12_8_grid_wide_net'
-    save_path = path_to_root + f'/code/behavior_cloning/saved_models/{name}.pt'
+    save_path = path_to_root + f'/behavior_cloning/saved_models/{name}.pt'
     th.save(trained_model.state_dict(), save_path)
 
     act = []
@@ -351,7 +351,7 @@ if __name__ == '__main__':
     upcoming_items_obs = []
     for k in range(TRAIN_VAL_FILES, NUM_DATA_FILES):
         data_file = f'3d_spp_random_data_16_items_10000_instances_12_8_grid_{k}'
-        data_path = path_to_root + f'/code/data/cp_sat_data/{data_file}.json'
+        data_path = path_to_root + f'/data/cp_sat_data/{data_file}.json'
         with open(data_path, 'r', encoding='utf-8') as fp:
             data = json.load(fp)
         act.append(data['actions'])

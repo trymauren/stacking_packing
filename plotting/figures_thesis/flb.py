@@ -7,7 +7,7 @@ import plotly.io as pio
 from plotly.subplots import make_subplots
 
 path_to_root = git.Repo('.', search_parent_directories=True).working_dir
-sys.path.append(path_to_root + '/code')
+sys.path.append(path_to_root)
 from plotting.plotly_utils import (
     generate_random_color,
     create_box,

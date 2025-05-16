@@ -9,6 +9,10 @@ from torch import nn
 from torch.distributions import Distribution
 import git
 import gymnasium as gym
+import hydra
+from hydra.core.hydra_config import HydraConfig
+from omegaconf import DictConfig, OmegaConf
+from importlib import import_module
 import matplotlib.pyplot as plt
 import multiprocessing as mp
 import numpy as np
@@ -17,15 +21,11 @@ import torch as th
 from typing import Callable
 
 path_to_root = git.Repo('.', search_parent_directories=True).working_dir
-sys.path.append(path_to_root + '/code')
+sys.path.append(path_to_root)
 
 from callback.callbacks import SummaryWriterCallback, SaveVecNormalizeCallback
-from run_scripts import logging_utils, rng_utils
-import hydra
-from hydra.core.hydra_config import HydraConfig
-from omegaconf import DictConfig, OmegaConf
-from importlib import import_module
 from feature_extraction.feature_extractors import FlattenDictExtractor
+from utils import rng_utils
 
 
 def linear_schedule(initial_value: float) -> Callable[[float], float]:
@@ -77,12 +77,12 @@ def load_callable(dotted_path: str):
 
 
 @hydra.main(
-    config_path=path_to_root + '/code/train_rl/train_conf/',
+    config_path=path_to_root + '/train_rl/train_conf/',
     config_name='continue_learn_config',
     version_base=None,
 )
 def main(cfg: DictConfig) -> None:
-    LOG_DIR = path_to_root + '/code/log/' + cfg.log_dir
+    LOG_DIR = path_to_root + '/log/' + cfg.log_dir
     train_cfg = OmegaConf.load(LOG_DIR + '/.hydra/config.yaml')
 
     item_getter_function = load_callable(train_cfg.env.item_getter_function)

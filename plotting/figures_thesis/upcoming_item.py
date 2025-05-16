@@ -6,7 +6,7 @@ import git
 import sys
 
 path_to_root = git.Repo('.', search_parent_directories=True).working_dir
-sys.path.append(path_to_root + '/code')
+sys.path.append(path_to_root)
 from plotting.figures_thesis.utils import *
 plt.style.use(path_to_root + "/plot_config.mplstyle")
 

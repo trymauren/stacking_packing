@@ -22,13 +22,13 @@ from omegaconf import DictConfig, OmegaConf
 from importlib import import_module
 
 path_to_root = git.Repo('.', search_parent_directories=True).working_dir
-sys.path.append(path_to_root + '/code')
+sys.path.append(path_to_root)
 
 from stacking_environment.environment import StackingWorld
 from callback.callbacks import (
     SummaryWriterCallback, EvalSummaryWriterCallback
 )
-from run_scripts import rng_utils
+from utils import rng_utils
 from plotting.plotly_plot_result import plotly_plot_stack
 from plotting.plt_plot_result import plt_plot_stack
 from plotting.pyvista_plot_result import pyvista_plot_stack, pyvista_plot_many_stacks
@@ -72,12 +72,12 @@ def load_callable(dotted_path: str):
 
 
 @hydra.main(
-    config_path=path_to_root + '/code/test_rl/test_conf',
+    config_path=path_to_root + '/test_rl/test_conf',
     config_name='config',
     version_base=None,
 )
 def main(cfg: DictConfig) -> None:
-    LOG_DIR = path_to_root + '/code/log/' + cfg.log_dir
+    LOG_DIR = path_to_root + '/log/' + cfg.log_dir
 
     train_cfg = OmegaConf.load(LOG_DIR + '/.hydra/config.yaml')
 

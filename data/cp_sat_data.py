@@ -5,7 +5,7 @@ import json
 import numpy
 
 path_to_root = git.Repo('.', search_parent_directories=True).working_dir
-sys.path.append(path_to_root + '/code')
+sys.path.append(path_to_root)
 
 from solvers import cp_sat_solver
 
@@ -13,11 +13,11 @@ from solvers import cp_sat_solver
 def generate_data(file_ix, solution_generator_kwargs, solver_kwargs) -> None:
     """
     Generates data using the google cp-sat solver program in
-    code/solvers/cp_sat_solver.py, and writes them to file
+    solvers/cp_sat_solver.py, and writes them to file
 
     Args:
     solution_generator_kwargs: keyword arguments passed to the solution
-      generator code/solvers/cp_sat_solver.get_3d_spp_solutions()
+      generator solvers/cp_sat_solver.get_3d_spp_solutions()
     solver_kwargs: keyword arguments passed to the cp-sat solver
     Returns:
     None
@@ -34,7 +34,7 @@ def generate_data(file_ix, solution_generator_kwargs, solver_kwargs) -> None:
     act_as_list = act.tolist()
 
     data = {'observations': obs_as_list, 'actions': act_as_list}
-    path_to_dir = path_to_root + '/code/data/cp_sat_data'
+    path_to_dir = path_to_root + '/data/cp_sat_data'
     data_path = f'{path_to_dir}/3d_spp_{data_type}_data_{num_items}_items_'
     data_path += f'{instances}_instances_{grid_shape[0]}_{grid_shape[1]}'
     data_path += f'_grid_{file_ix}.json'

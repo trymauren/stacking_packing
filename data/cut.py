@@ -5,7 +5,7 @@ import random
 from copy import copy
 path_to_root = git.Repo('.', search_parent_directories=True).working_dir
 sys.path.append(path_to_root)
-sys.path.append(path_to_root + '/code')
+sys.path.append(path_to_root)
 
 from stacking_objects.item import Item
 from stacking_objects.stack import Stack

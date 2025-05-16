@@ -7,7 +7,7 @@ import numpy as np
 
 path_to_root = git.Repo('.', search_parent_directories=True).working_dir
 sys.path.append(path_to_root)
-sys.path.append(path_to_root + '/code')
+sys.path.append(path_to_root)
 
 # import estimators
 import data.feasible_positions_data as fpd

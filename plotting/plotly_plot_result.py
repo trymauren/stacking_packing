@@ -6,7 +6,7 @@ import plotly.express as px
 import plotly.io as pio
 
 path_to_root = git.Repo('.', search_parent_directories=True).working_dir
-sys.path.append(path_to_root + '/code')
+sys.path.append(path_to_root)
 from plotting.plotly_utils import (
     generate_random_color, create_box, create_box_outline,
     add_bin_lines, visual_setup

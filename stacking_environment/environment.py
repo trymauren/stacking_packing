@@ -11,7 +11,7 @@ from gymnasium import spaces
 
 path_to_root = git.Repo('.', search_parent_directories=True).working_dir
 sys.path.append(path_to_root)
-sys.path.append(path_to_root + '/code')
+sys.path.append(path_to_root)
 
 from stacking_objects.stack import Stack
 from stacking_objects.bullet_env import PyBulletEnv
@@ -141,9 +141,9 @@ class StackingWorld(gym.Env):
         sim_env.reset_sim(gravity=self.gravity)
         sim_env.loadURDF('plane', fileName='plane.urdf')
         # sim_env.loadURDF(
-        #     'plane', fileName=path_to_root + '/code/urdf/custom_plane.urdf')
+        #     'plane', fileName=path_to_root + '/urdf/custom_plane.urdf')
         # sim_env.loadURDF(
-        #     'pallet', fileName=path_to_root + '/code/urdf/euro_pallet.urdf')
+        #     'pallet', fileName=path_to_root + '/urdf/euro_pallet.urdf')
 
         # sim_env.place_visualizer(
         #     target_position=(*self.grid_shape/2, 0),
@@ -173,9 +173,9 @@ class StackingWorld(gym.Env):
         self.sim_env.reset_sim(gravity=self.gravity)
         self.sim_env.loadURDF('plane', fileName='plane.urdf')
         # self.sim_env.loadURDF(
-        #     'plane', fileName=path_to_root + '/code/urdf/custom_plane.urdf')
+        #     'plane', fileName=path_to_root + '/urdf/custom_plane.urdf')
         # self.sim_env.loadURDF(
-        #     'pallet', fileName=path_to_root + '/code/urdf/euro_pallet.urdf')
+        #     'pallet', fileName=path_to_root + '/urdf/euro_pallet.urdf')
 
         # pallet_id = self.sim_env._bodies_idx['pallet']
         # joint_type = self.sim_env.physics_client.JOINT_FIXED

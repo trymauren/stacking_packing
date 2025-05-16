@@ -3,7 +3,7 @@ import git
 import matplotlib.pyplot as plt
 import numpy as np
 path_to_root = git.Repo('.', search_parent_directories=True).working_dir
-sys.path.append(path_to_root + '/code')
+sys.path.append(path_to_root)
 from plotting.plt_utils import *
 from stacking_objects.item import Item
 # plt.style.use(path_to_root + "/plot_config.mplstyle")

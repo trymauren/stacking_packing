@@ -7,6 +7,10 @@ from stable_baselines3.common.vec_env import VecVideoRecorder, VecNormalize
 from torch import nn
 from torch.distributions import Distribution
 import git
+import hydra
+from hydra.core.hydra_config import HydraConfig
+from omegaconf import DictConfig, OmegaConf
+from importlib import import_module
 import gymnasium as gym
 import matplotlib.pyplot as plt
 import multiprocessing as mp
@@ -16,14 +20,10 @@ import torch as th
 from typing import Callable
 
 path_to_root = git.Repo('.', search_parent_directories=True).working_dir
-sys.path.append(path_to_root + '/code')
+sys.path.append(path_to_root)
 
 from callback.callbacks import SummaryWriterCallback, SaveVecNormalizeCallback
-from run_scripts import logging_utils, rng_utils
-import hydra
-from hydra.core.hydra_config import HydraConfig
-from omegaconf import DictConfig, OmegaConf
-from importlib import import_module
+from utils import rng_utils
 from feature_extraction.feature_extractors import FlattenDictExtractor
 
 
@@ -76,7 +76,7 @@ def load_callable(dotted_path: str):
 
 
 @hydra.main(
-    config_path=path_to_root + '/code/train_rl/train_conf',
+    config_path=path_to_root + '/train_rl/train_conf',
     config_name='stability_curriculum',
     version_base=None,
 )
@@ -111,7 +111,7 @@ def main(cfg: DictConfig) -> None:
     vec_env_config['env_kwargs']['i_g_f_kwargs'] = i_g_f_kwargs
 
     # Setup -----------------------------------------------------------
-    LOG_DIR = path_to_root + '/code/' + HydraConfig.get().run.dir
+    LOG_DIR = path_to_root + '/' + HydraConfig.get().run.dir
     CONFIG_PATH = LOG_DIR + '/saved_config'
     SAVE_EVAL_PATH_COMPACT = LOG_DIR + '/saved_model/compact/'
     SAVE_EVAL_PATH_SUPPORT = LOG_DIR + '/saved_model/support/'

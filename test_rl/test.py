@@ -16,7 +16,7 @@ from stable_baselines3.common.env_util import make_vec_env
 from sb3_contrib.common.maskable.evaluation import evaluate_policy
 from sb3_contrib.ppo_mask import MaskablePPO
 path_to_root = git.Repo('.', search_parent_directories=True).working_dir
-sys.path.append(path_to_root + '/code')
+sys.path.append(path_to_root)
 
 from stacking_environment.environment import StackingWorld
 from callback.callbacks import (
@@ -75,9 +75,9 @@ def main():
     }
 
     """ Setup ----------------------------------------------------- """
-    # LOG_DIR = path_to_root + '/code/log/data_randomness_term_reward/2025-02-26_11-47-33/'
+    # LOG_DIR = path_to_root + '/log/data_randomness_term_reward/2025-02-26_11-47-33/'
     # LOG_DIR += f'data_func=random_sampling.random_sample,env.num_hetero_instance_samples=-1,env.step_compact_rew_coef=0,env.term_compact_rew_coef=1,log_header=data_randomness_term_reward,model.device=cpu,n_envs=128,num_items={lookahead}'
-    LOG_DIR = path_to_root + '/code/log/decoupled_action_performance/2025-04-14_18-49-02/'
+    LOG_DIR = path_to_root + '/log/decoupled_action_performance/2025-04-14_18-49-02/'
     LOG_DIR += f'data_func=cut.cutting_stock,env.flat_action_space=False,env.lookahead=8,env.term_compact_rew_coef=1,learn.total_timesteps=10_000_000,model.ent_coef=0.0,model.learning_rate=0.001,model.n_epochs=15,model.policy_kwargs.net_arch=[64, 64],n_envs=4'
     BEST_MODEL_PATH = LOG_DIR + '/saved_model/best_model'
     LAST_MODEL_PATH = LOG_DIR + '/saved_model/final_model'

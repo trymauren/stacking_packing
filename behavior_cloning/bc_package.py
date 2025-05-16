@@ -12,7 +12,7 @@ from imitation.util.util import make_vec_env
 
 
 path_to_root = git.Repo('.', search_parent_directories=True).working_dir
-sys.path.append(path_to_root + '/code')
+sys.path.append(path_to_root)
 
 
 from stacking_environment.environment import StackingWorld

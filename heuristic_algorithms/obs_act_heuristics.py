@@ -4,7 +4,7 @@ import numpy as np
 
 path_to_root = git.Repo('.', search_parent_directories=True).working_dir
 sys.path.append(path_to_root)
-sys.path.append(path_to_root + '/code')
+sys.path.append(path_to_root)
 
 from stacking_objects.stack import Stack
 from stacking_objects.bullet_env import PyBulletEnv
