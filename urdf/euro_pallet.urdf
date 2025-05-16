@@ -1,0 +1,137 @@
+<?xml version="1.0" ?>
+<robot name="pallet">
+
+  <!-- Base link -->
+  <link name="base_link">
+    <contact>
+      <lateral_friction value="1"/>
+      <spinning_friction value="1"/>
+    </contact>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+  </link>
+
+  <!-- Cover -->
+  <joint name="cover_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0.4 0.6 -0.022"/> <!-- Shifted down, top at z=0 -->
+    <parent link="base_link"/>
+    <child link="cover_link"/>
+  </joint>
+  <link name="cover_link">
+    <visual>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/> <!-- Centered at z=-0.05 -->
+      <geometry>
+        <box size="0.8 1.2 0.044"/>
+      </geometry>
+      <material name="wood">
+        <color rgba="0.937 0.753 0.439 1"/>
+      </material>
+    </visual>
+    <contact>
+      <lateral_friction value="0.9"/>
+      <spinning_friction value="0.9"/>
+    </contact>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="3.0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+    <collision>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/> <!-- Centered at z=-0.05 -->
+      <geometry>
+        <box size="0.8 1.2 0.044"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- Left foot -->
+  <joint name="left_foot_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0.05 0.6 -0.094"/> <!-- Foot supports the cover -->
+    <parent link="base_link"/>
+    <child link="left_foot_link"/>
+  </joint>
+  <link name="left_foot_link">
+    <visual>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/> <!-- Centered under the cover -->
+      <geometry>
+        <box size="0.1 1.2 0.1"/>
+      </geometry>
+      <material name="wood">
+        <color rgba="0.937 0.753 0.439 1"/>
+      </material>
+    </visual>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.5"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+    <collision>
+      <origin rpy="0 0 0" xyz="0.00 0.0 0.0"/> <!-- Centered under the cover -->
+      <geometry>
+        <box size="0.1 1.2 0.078"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- Central foot -->
+  <joint name="central_foot_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0.4 0.6 -0.094"/> <!-- Foot supports the cover -->
+    <parent link="base_link"/>
+    <child link="central_foot_link"/>
+  </joint>
+  <link name="central_foot_link">
+    <visual>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/> <!-- Centered under the cover -->
+      <geometry>
+        <box size="0.1 1.2 0.1"/>
+      </geometry>
+      <material name="wood">
+        <color rgba="0.937 0.753 0.439 1"/>
+      </material>
+    </visual>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.5"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+    <collision>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/> <!-- Centered under the cover -->
+      <geometry>
+        <box size="0.1 1.2 0.078"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- Right foot -->
+  <joint name="right_foot_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0.75 0.6 -0.094"/> <!-- Foot supports the cover -->
+    <parent link="base_link"/>
+    <child link="right_foot_link"/>
+  </joint>
+  <link name="right_foot_link">
+    <visual>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/> <!-- Centered under the cover -->
+      <geometry>
+        <box size="0.1 1.2 0.1"/>
+      </geometry>
+      <material name="wood">
+        <color rgba="0.937 0.753 0.439 1"/>
+      </material>
+    </visual>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.5"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+    <collision>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/> <!-- Centered under the cover -->
+      <geometry>
+        <box size="0.1 1.2 0.078"/>
+      </geometry>
+    </collision>
+  </link>
+
+</robot>

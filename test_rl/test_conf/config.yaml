@@ -1,0 +1,32 @@
+log_dir: ???
+model_dir: False
+seeds: [0]
+test_rl: True
+test_random: True
+test_flb: True
+test_cp_sat: True
+make_plots: True
+plot_collection: True
+plot_ind_stacks: True
+plot_comparison: True
+coll_num_stacks: 3
+ind_num_stacks: 3
+write_stats: ???
+
+evaluate_policy_kwargs:
+  n_eval_episodes: 10
+  render: False # dont adjust, use override_train_env instead
+  deterministic: True
+  return_episode_rewards: True
+
+override_train_env:
+  # sim: False
+  # gravity: 0
+  sim: True
+  gravity: 1
+  # render_mode: 'rgb_array'
+  # minimal_support: 0.5
+
+override_make_vec_env:
+  n_envs: 1
+

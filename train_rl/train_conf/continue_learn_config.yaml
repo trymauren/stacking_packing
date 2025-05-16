@@ -1,0 +1,35 @@
+log_dir: ???  # must be provided
+model_dir: False
+
+save_header: ???
+# sim: False
+# heuristic_stability: False
+load_norm: True
+make_norm: False
+norm_obs: True
+norm_rew: True
+
+env:
+  sim: True
+  gravity: 1
+  render_mode: 'rgb_array'
+  renderer: 'Tiny'
+  item_lateral_friction: 0.9
+  item_spin_friction: 0.9
+  item_restitution: 1
+  item_collision_margin: 0.0
+  step_compact_rew_coef: 0
+  term_compact_rew_coef: 1
+  term_compact_rew_exp: 2
+  stable_rew_coef: 1
+
+learn:
+  total_timesteps: 3_500_000
+  progress_bar: True
+
+eval:
+  eval_freq: 50_000
+  n_eval_episodes: 500
+  deterministic: True
+
+load_model_kwargs:

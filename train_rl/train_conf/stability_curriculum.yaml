@@ -1,0 +1,125 @@
+hydra:
+  run:
+    dir: ./log/${log_header}/${timestamp}/${hydra.job.override_dirname}
+  sweep:
+    dir: ./log/${log_header}/${timestamp}/${hydra.job.override_dirname}
+    subdir: ""
+  job:
+    config:
+        override_dirname:
+          exclude_keys:
+            - log_header
+            - save_header
+
+timestamp: ${now:%Y-%m-%d_%H-%M-%S}
+
+log_header: ???  # must be provided
+seed: 829
+n_envs: 12
+size: [1.0, 1.0]  # Y, X
+discretisation: 10
+data_func: random_sampling.random_sample
+norm: True
+norm_rew: True
+norm_obs: True
+device: cpu
+
+log_types: ['tensorboard']
+
+reward_compact:
+  step_compact_rew_coef: 0
+  term_compact_rew_coef: 1
+  term_compact_rew_exp: 2
+  stable_rew_coef: 0
+
+reward_support:
+  step_compact_rew_coef: 0
+  term_compact_rew_coef: 1
+  term_compact_rew_exp: 2
+  stable_rew_coef: 1
+
+reward_stable:
+  step_compact_rew_coef: 0
+  term_compact_rew_coef: 1
+  term_compact_rew_exp: 2
+  stable_rew_coef: 1
+
+env:
+  sim: False
+  gravity: 0
+  render_mode: 'rgb_array'
+  size: ${size}
+  lookahead: 16
+  discretisation: ${discretisation}
+  max_height: 10_000
+  item_getter_function: data.${data_func}
+  i_g_f_kwargs:
+    grid_shape: ${scale_array:${size},${discretisation}}
+    mass: 10
+    num_items: 16
+    min_: ${get_item_bound:${scale_array:${size},${discretisation}},4}
+    max_: ${get_item_bound:${scale_array:${size},${discretisation}},2}
+  step_compact_rew_coef: 0
+  term_compact_rew_coef: 0
+  term_compact_rew_exp: 1
+  stable_rew_coef: 0
+  num_hetero_instance_samples: -1
+  flat_action_space: False
+  minimal_support: 0
+
+model:
+  policy: 'MultiInputPolicy'
+  device: ${device}
+  gamma: 1
+  learning_rate: 0.0003
+  n_steps: 4096
+  batch_size: 8192
+  policy_kwargs:
+    share_features_extractor: False
+    net_arch:
+      pi: [256,256]
+      vf: [256,256]
+    activation_fn: torch.nn.modules.activation.ReLU
+    features_extractor_class: feature_extraction.feature_extractors.FlattenDictExtractor
+    features_extractor_kwargs:
+      hidden_layers: [256,256,256]
+      activation_fn: torch.nn.modules.activation.ReLU
+  seed: ${seed}
+
+learn_compact:
+  total_timesteps: 100_000_000
+  progress_bar: True
+
+learn_support:
+  total_timesteps: 50_000_000
+  progress_bar: True
+
+learn_stable:
+  total_timesteps: 5_000_000
+  progress_bar: True
+
+eval_compact:
+  eval_freq: 100_000
+  n_eval_episodes: 500
+  deterministic: True
+
+eval_support:
+  eval_freq: 100_000
+  n_eval_episodes: 500
+  deterministic: True
+
+eval_stable:
+  eval_freq: 50_000
+  n_eval_episodes: 500
+  deterministic: True
+
+vec_env:
+  env_id: stacking_environment.environment.StackingWorld
+  seed: ${seed}
+  n_envs: ${n_envs}
+  vec_env_cls: stable_baselines3.common.vec_env.SubprocVecEnv
+  # wrapper_class: stable_baselines3.common.monitor.Monitor
+  env_kwargs: ${env}
+  monitor_kwargs:
+    info_keywords:
+      - 'is_success'
