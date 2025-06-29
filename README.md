@@ -1,4 +1,4 @@
-This repository contains code for the master's thesis
+This repository contains code (both drafts, working and non-working) for the master's thesis
 
 # *Approximating a combinatorial problem using reinforcement learning and a physics engine - An application in pallet stacking*
 
