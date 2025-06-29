@@ -35,6 +35,7 @@ def pyvista_plot_stack(
         plotter.show()
     if save_path:
         plotter.save_graphic(save_path, raster=False, painter=True)
+    plotter.close()
 
 
 def pyvista_plot_many_stacks(
@@ -121,3 +122,66 @@ def pyvista_plot_many_stacks(
         plotter.show()
     if save_path:
         plotter.save_graphic(save_path, raster=False, painter=True)
+    plotter.close()
+
+
+def pyvista_make_movie(
+    items,
+    W,
+    D,
+    show=False,
+    save_path=False,
+):
+    pv.global_theme.color_cycler = 'default'
+    plotter = pv.Plotter(window_size=(2000, 2000), off_screen=(not show))
+    plotter.open_movie(save_path)
+    
+    # Calculate scene bounds from all items first
+    all_bounds = []
+    for item in items:
+        x, y, z = item.get_position()
+        dx, dy, dz = item.get_dimensions()
+        all_bounds.extend([
+            [x - dx/2, x + dx/2],
+            [y - dy/2, y + dy/2], 
+            [z - dz/2, z + dz/2]
+        ])
+    
+    # Set camera position based on scene bounds
+    if all_bounds:
+        x_range = [min(b[0] for b in all_bounds[::3]), max(b[1] for b in all_bounds[::3])]
+        y_range = [min(b[0] for b in all_bounds[1::3]), max(b[1] for b in all_bounds[1::3])]
+        z_range = [min(b[0] for b in all_bounds[2::3]), max(b[1] for b in all_bounds[2::3])]
+        
+        center = [(x_range[0] + x_range[1])/2, 
+                  (y_range[0] + y_range[1])/2, 
+                  (z_range[0] + z_range[1])/2]
+        
+        # Position camera at a reasonable distance
+        max_range = max(x_range[1] - x_range[0], 
+                       y_range[1] - y_range[0], 
+                       z_range[1] - z_range[0])
+        
+        camera_distance = max_range * 2
+        plotter.camera.position = (center[0] + camera_distance, 
+                                  center[1] + camera_distance, 
+                                  center[2] + camera_distance)
+        plotter.camera.focal_point = center
+        plotter.camera.up = (0, 0, 1)
+    
+    plotter.renderer.set_color_cycler(CMAP)
+    plotter.write_frame()
+    
+    for ix, item in enumerate(items):
+        x, y, z = item.get_position()
+        dx, dy, dz = item.get_dimensions()
+        add_cube(
+            plotter, x, y, z, dx, dy, dz,
+            opacity=1, show_edges=False
+        )
+        plotter.write_frame()
+        plotter.write_frame()
+        plotter.write_frame()
+        plotter.write_frame()
+    
+    plotter.close()

@@ -31,7 +31,7 @@ from callback.callbacks import (
 from utils import rng_utils
 from plotting.plotly_plot_result import plotly_plot_stack
 from plotting.plt_plot_result import plt_plot_stack
-from plotting.pyvista_plot_result import pyvista_plot_stack, pyvista_plot_many_stacks
+from plotting.pyvista_plot_result import pyvista_plot_stack, pyvista_plot_many_stacks, pyvista_make_movie
 from plotting.plot_test_stats import plot_individual_stats, plot_inference_time, plot_combined_stats
 from heuristic_algorithms.obs_act_heuristics import flb_heuristic, random_heuristic
 from heuristic_algorithms.evaluate_heuristic import evaluate_heuristic
@@ -377,6 +377,13 @@ def main(cfg: DictConfig) -> None:
                         D,
                         save_path=f'{IND_PATH}/rl_stack_{i}.pdf'
                     )
+                    pyvista_make_movie(
+                        rl_stats_cat['stacked_items'].iloc[i],
+                        W,
+                        D,
+                        save_path=f'{IND_PATH}/rl_stack_{i}.mp4'
+                    )
+
                 if cfg.test_random:
                     pyvista_plot_stack(
                         random_stats_cat['stacked_items'].iloc[i],

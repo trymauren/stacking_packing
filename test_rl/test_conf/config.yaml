@@ -24,7 +24,7 @@ override_train_env:
   # gravity: 0
   sim: True
   gravity: 1
-  # render_mode: 'rgb_array'
+  render_mode: 'human'
   # minimal_support: 0.5
 
 override_make_vec_env:

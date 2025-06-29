@@ -4,7 +4,7 @@ import seaborn as sns
 import textwrap
 plt.set_loglevel('WARNING')
 path_to_root = git.Repo('.', search_parent_directories=True).working_dir
-plt.style.use(path_to_root + "/thesis/plot_config.mplstyle")
+# plt.style.use(path_to_root + "/plotting/plot_config.mplstyle")
 
 metrics_range_01 = [
     'stack_compactness', 'stack_gap_ratio', 'stack_stability_bool'
